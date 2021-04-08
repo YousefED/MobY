@@ -1,46 +1,41 @@
-# Getting Started with Create React App
+# MobY: MobX bindings for Yjs
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Experimental bridge between MobX and Yjs
 
-## Available Scripts
+- Yjs: great for data syncing
+- MobX: great for developing applications that automatically react to state changes
 
-In the project directory, you can run:
+## What does this solve?
 
-### `yarn start`
+Although Yjs is great for data syncing, observing changes to your data model can be quite cumbersome. You'd need to manually call `observe` to keep updated of changes, for example by peers connected to the same document.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+MobY brings the reactive data model of MobX to Yjs.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Cool, how does it work?
 
-### `yarn test`
+Set up your yJS document (same as plain-yJS):
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```
+const ydoc = new Y.Doc();
+const provider = new WebrtcProvider("doc", ydoc);
+```
 
-### `yarn build`
+Call observeYJS to patch the document. From now on, `ydoc` will be compatible with MobX observers:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```
+observeYJS(ydoc);
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Use the Yjs document somewhere in an observer, for example using MobX `autorun`:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```
+autorun(() => {
+    console.log(ydoc.getMap("data").get("magicnumber")); // automatically log the Yjs value once it's updated
+})
+```
 
-### `yarn eject`
+Or use mobx-react-lite to automatically rerender your React components.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Demo?
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+[Playground on CodeSandbox](https://codesandbox.io/s/moby-demo-yn42g?file=/src/App.tsx). Open multiple windows and click the button to see the magic.

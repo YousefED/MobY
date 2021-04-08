@@ -1,7 +1,11 @@
 {
-  "name": "moby",
-  "version": "0.1.0",
-  "private": true,
+  "name": "mobyjs",
+  "repository": {
+    "url": ""
+  },
+  "license": "MIT",
+  "version": "0.1.2",
+  "private": false,
   "main": "dist/moby.js",
   "module": "dist/moby.module.js",
   "umd:main": "dist/moby.umd.js",
@@ -9,8 +13,7 @@
   "types": "types/index.d.ts",
   "dependencies": {
     "@types/jest": "^26.0.15",
-    "@types/node": "^12.0.0",
-    "react": "^17.0.2"
+    "@types/node": "^12.0.0"
   },
   "devDependencies": {
     "typescript": "^4.1.2",
