@@ -1,0 +1,29 @@
+{
+  "name": "moby",
+  "version": "0.1.0",
+  "private": true,
+  "main": "dist/moby.js",
+  "module": "dist/moby.module.js",
+  "umd:main": "dist/moby.umd.js",
+  "source": "src/index.ts",
+  "types": "types/index.d.ts",
+  "dependencies": {
+    "@types/jest": "^26.0.15",
+    "@types/node": "^12.0.0",
+    "react": "^17.0.2"
+  },
+  "devDependencies": {
+    "typescript": "^4.1.2",
+    "microbundle": "^0.13.0",
+    "mobx": "^6.0.0",
+    "yjs": "^13.5.4"
+  },
+  "peerDependencies": {
+    "mobx": "*",
+    "yjs": "*"
+  },
+  "scripts": {
+    "package": "microbundle build --raw --no-compress",
+    "test": "jest"
+  }
+}
