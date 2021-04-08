@@ -1,15 +1,15 @@
 # MobY: MobX bindings for Yjs
 
-Experimental bridge between MobX and Yjs
-
-- Yjs: great for data syncing
-- MobX: great for developing applications that automatically react to state changes
+Experimental bridge between MobX and Yjs. [Demo + Playground on CodeSandbox](https://codesandbox.io/s/moby-demo-yn42g?file=/src/App.tsx).
 
 ## What does this solve?
 
-Although Yjs is great for data syncing, observing changes to your data model can be quite cumbersome. You'd need to manually call `observe` to keep updated of changes, for example by peers connected to the same document.
+Although Yjs is great for data syncing, observing changes to your data model can be quite cumbersome. You'd need to manually call `observe` to keep updated of (incoming) changes and keep the rest of your application in sync.
 
-MobY brings the reactive data model of MobX to Yjs.
+MobY brings the reactive data model of MobX to Yjs. Combine best of both worlds:
+
+- Yjs: great for data syncing
+- MobX: great for developing applications that automatically react to state changes
 
 ## Cool, how does it work?
 
