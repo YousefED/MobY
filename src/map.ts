@@ -1,4 +1,4 @@
-import { createAtom, IAtom } from "mobx";
+import { IAtom, createAtom } from "mobx";
 import * as Y from "yjs";
 import { isYType, observeYJS } from ".";
 
@@ -15,8 +15,15 @@ export function observeMap(map: Y.Map<any>) {
 
   function reportSelfAtom() {
     if (!selfAtom) {
-      const handler = (_changes: Y.YMapEvent<any>) => {
-        selfAtom!.reportChanged();
+      const handler = (event: Y.YMapEvent<any>) => {
+        if (
+          event.changes.added.size ||
+          event.changes.deleted.size ||
+          event.changes.keys.size ||
+          event.changes.delta.length
+        ) {
+          selfAtom!.reportChanged();
+        }
       };
       selfAtom = createAtom(
         "map",
@@ -28,6 +35,7 @@ export function observeMap(map: Y.Map<any>) {
         }
       );
     }
+    selfAtom.reportObserved();
   }
 
   function reportMapKeyAtom(key: string) {
@@ -35,9 +43,16 @@ export function observeMap(map: Y.Map<any>) {
 
     // possible optimization: only register a single handler for all keys
     if (!atom) {
-      const handler = (changes: Y.YMapEvent<any>) => {
-        if (changes.keysChanged.has(key)) {
-          atom!.reportChanged();
+      const handler = (event: Y.YMapEvent<any>) => {
+        if (event.keysChanged.has(key)) {
+          if (
+            event.changes.added.size ||
+            event.changes.deleted.size ||
+            event.changes.keys.size ||
+            event.changes.delta.length
+          ) {
+            atom!.reportChanged();
+          }
         }
       };
       atom = createAtom(
@@ -76,6 +91,13 @@ export function observeMap(map: Y.Map<any>) {
   map.values = function () {
     reportSelfAtom();
     const ret = Reflect.apply(originalValues, this, arguments);
+    return ret;
+  };
+
+  const originalToJSON = map.toJSON;
+  map.toJSON = function () {
+    reportSelfAtom();
+    const ret = Reflect.apply(originalToJSON, this, arguments);
     return ret;
   };
 

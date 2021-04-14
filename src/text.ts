@@ -1,4 +1,4 @@
-import { createAtom, IAtom } from "mobx";
+import { IAtom, createAtom } from "mobx";
 import * as Y from "yjs";
 
 const textAtoms = new WeakMap<Y.Text, IAtom>();
