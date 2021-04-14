@@ -3,16 +3,16 @@ import { observeDoc } from "./doc";
 import { observeMap } from "./map";
 import { observeText } from "./text";
 
+export function isYType(element: any) {
+  return element instanceof Y.AbstractType || Object.prototype.hasOwnProperty.call(element, "autoLoad"); // detect subdocs. Is there a better way for this?
+}
 export function observeYJS(element: Y.AbstractType<any> | Y.Doc) {
   if (element instanceof Y.Text) {
     return observeText(element);
   } else if (element instanceof Y.Array) {
   } else if (element instanceof Y.Map) {
     return observeMap(element);
-  } else if (
-    element instanceof Y.Doc ||
-    Object.prototype.hasOwnProperty.call(element, "autoLoad") // subdoc. Ok way to detect this?
-  ) {
+  } else if (element instanceof Y.Doc || Object.prototype.hasOwnProperty.call(element, "autoLoad")) {
     return observeDoc((element as any) as Y.Doc);
   } else {
     throw new Error("not yet supported");

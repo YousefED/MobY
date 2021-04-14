@@ -1,5 +1,5 @@
 import * as Y from "yjs";
-import { observeYJS } from ".";
+import { isYType, observeYJS } from ".";
 
 const docsObserved = new WeakSet<Y.Doc>();
 
@@ -20,7 +20,7 @@ export function observeDoc(doc: Y.Doc) {
     if (!ret) {
       return ret;
     }
-    if (ret instanceof Y.AbstractType) {
+    if (isYType(ret)) {
       return observeYJS(ret);
     }
     return ret;

@@ -1,6 +1,6 @@
 import { createAtom, IAtom } from "mobx";
 import * as Y from "yjs";
-import { observeYJS } from ".";
+import { isYType, observeYJS } from ".";
 
 const mapsObserved = new WeakSet<Y.Map<any>>();
 
@@ -66,7 +66,7 @@ export function observeMap(map: Y.Map<any>) {
     if (!ret) {
       return ret;
     }
-    if (ret instanceof Y.AbstractType) {
+    if (isYType(ret)) {
       return observeYJS(ret);
     }
     return ret;
