@@ -1,4 +1,4 @@
-deprecated: moved to [@reactivedata/yjs-reactive-bindings](https://www.npmjs.com/package/@reactivedata/yjs-reactive-bindings).
+**deprecated: moved to [@reactivedata/yjs-reactive-bindings](https://www.npmjs.com/package/@reactivedata/yjs-reactive-bindings).**
 
 # MobY: MobX bindings for Yjs
 
