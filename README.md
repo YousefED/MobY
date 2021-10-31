@@ -1,3 +1,5 @@
+deprecated: moved to [@reactivedata/yjs-reactive-bindings](https://www.npmjs.com/package/@reactivedata/yjs-reactive-bindings).
+
 # MobY: MobX bindings for Yjs
 
 Experimental bridge between MobX and Yjs. [Demo + Playground on CodeSandbox](https://codesandbox.io/s/moby-demo-yn42g?file=/src/App.tsx).
